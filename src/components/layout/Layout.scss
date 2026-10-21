@@ -1,0 +1,22 @@
+@use '../../styles/tokens' as t;
+.benefits { min-height: 32px; display: flex; justify-content: center; align-items: center; gap: 119px; border-bottom: 1px solid t.$border; color: t.$muted; font-size: 12px; strong { color: t.$highlight; font-weight: 600; } }
+.header-main { height: 72px; display: grid; grid-template-columns: 245px minmax(0, 630px) 1fr; align-items: center; gap: 80px; }
+.benefits li, .main-nav li { display: flex; align-items: center; gap: 9px; }
+.header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 32px; button { padding: 0; background: none; border: 0; } }
+.search-field { position: relative; > img { position: absolute; right: 24px; top: 10px; } }
+.search-field input { width: 100%; height: 48px; background: t.$search; border: 0; border-radius: 10px; padding: 16px 60px 16px 16px; color: t.$muted; opacity: 1; }
+.main-nav { height: 40px; display: flex; align-items: center; justify-content: space-around; gap: 20px; border-top: 1px solid t.$border; box-shadow: 0 8px 16px rgba(57,48,19,.12); font-size: 12px; font-weight: 600; text-transform: uppercase; color: t.$muted; white-space: nowrap; li:nth-child(6) { color: t.$highlight; } }
+.newsletter { background: t.$purple; color: white; }
+.newsletter-inner { min-height: 162px; display: grid; grid-template-columns: 515px 1fr; align-items: center; gap: 124px; h2 { font-family: 'Outfit', Arial, sans-serif; font-size: 32px; line-height: 1.2; margin: 0 0 8px; font-weight: 600; } p { font-size: 14px; line-height: 18px; font-weight: 300; margin: 0; } }
+.newsletter-fields { display: grid; grid-template-columns: 1fr 1fr 157px; gap: 8px; input { width: 100%; min-width: 0; height: 42px; border: 1px solid t.$border; border-radius: 8px; padding: 12px 24px; background: white; opacity: 1; } .button { min-height: 42px; border-radius: 8px; font-size: 14px; padding: 12px; } }
+.newsletter-consent { display: flex; gap: 4px; align-items: center; font-size: 14px; margin-top: 8px; input { margin: 0; } }
+.footer-main { background: t.$surface; }
+.footer-inner { min-height: 282px; display: grid; grid-template-columns: 444px 1fr; gap: 90px; align-items: center; padding-block: 42px; }
+.footer-brand { padding-right: 90px; border-right: 1px solid t.$border; p { font-size: 14px; font-weight: 300; margin: 18px 0 27px; } }
+.socials { display: flex; gap: 26px; }
+.footer-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; color: rgba(34,34,34,.71); h2 { font-size: 16px; line-height: 16px; margin: 0 0 20px; } ul { display: grid; gap: 16px; font-family: 'Work Sans', Arial, sans-serif; font-size: 14px; line-height: 16px; } section:last-child ul { font-family: t.$font; } }
+.footer-bottom { min-height: 47px; display: grid; place-items: center; font-size: 13px; font-weight: 300; margin: 0; text-align: center; padding: 12px; }
+@media (max-width: 1250px) { .newsletter-inner { grid-template-columns: 1fr 1.2fr; gap: 32px; } .header-main { grid-template-columns: 139px 1fr auto; gap: 32px; } .footer-inner { grid-template-columns: 1fr 2fr; gap: 40px; } .footer-brand { padding-right: 32px; } }
+@media (max-width: 900px) { .benefits { gap: 24px; } .main-nav { justify-content: flex-start; overflow-x: auto; } .newsletter-inner { grid-template-columns: 1fr; padding-block: 32px; } .footer-inner { grid-template-columns: 1fr; } .footer-brand { border: 0; } }
+@media (max-width: 600px) { .benefits { flex-wrap: wrap; gap: 4px 16px; padding-block: 8px; } .header-main { height: auto; padding-block: 16px; grid-template-columns: 1fr auto; .search-field { grid-row: 2; grid-column: 1 / -1; } } .newsletter-fields { grid-template-columns: 1fr; } .footer-groups { grid-template-columns: 1fr; gap: 32px; } }
+@media (max-width: 600px) { .header-actions { gap: 12px; } }

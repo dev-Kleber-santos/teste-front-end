@@ -1,0 +1,15 @@
+@use '../../styles/tokens' as t;
+.hero { height: 390px; position: relative; overflow: hidden; color: white; }
+.hero-image { position: absolute; width: 124.99%; height: 307.71%; left: -.06%; top: -69.16%; }
+.hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.65), transparent 75%); }
+.hero-content { position: relative; padding-top: 78px; h1 { font-size: 48px; line-height: 50px; font-weight: 600; max-width: 650px; margin: 0; } p { font-size: 32px; margin: 18px 0 30px; strong { color: t.$yellow; } } .button { width: 206px; min-height: 50px; border-radius: 5px; font-weight: 600; } }
+.categories { padding-top: 39px; ul { display: flex; justify-content: center; gap: 42px; } li { flex: 0 0 128px; text-align: center; font-size: 14px; font-weight: 500; white-space: nowrap; &:first-child { color: t.$highlight; font-weight: 600; .category-image { background: white; box-shadow: 0 2px 9px rgba(0,0,0,.22); } } } }
+.category-image { width: 128px; height: 128px; border-radius: 10px; background: t.$surface; box-shadow: 0 4px 11px rgba(0,0,0,.13); display: grid; place-items: center; margin-bottom: 22px; }
+.partners { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.partners-note { grid-column: 1 / -1; font-size: 12px; margin: 0; }
+.partner { height: 350px; position: relative; overflow: hidden; border-radius: 20px; > img { position: absolute; width: 131.18%; height: 503px; left: -15.68%; top: -45px; object-fit: cover; } }
+.partner-shade { position: absolute; inset: 89px 0 0; background: linear-gradient(transparent, rgba(0,0,0,.8) 85%); }
+.partner-content { position: relative; padding: 114px 44px 40px; color: white; h2 { font-size: 40px; line-height: 60px; margin: 0 0 8px; } p { max-width: 200px; font-size: 16px; line-height: 24px; margin: 0 0 32px; } .button { width: 145px; min-height: 48px; letter-spacing: 1.28px; } }
+.brands { h2 { font-size: 30px; line-height: 45px; text-align: center; color: t.$blue; margin: 0 0 32px; } ul { display: flex; justify-content: center; gap: 42px; } li { width: 211px; height: 211px; flex: 0 0 211px; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 7px 10px rgba(0,0,0,.13); } }
+@media (max-width: 1250px) { .categories ul, .brands ul { justify-content: flex-start; overflow-x: auto; padding: 12px 8px 24px; } }
+@media (max-width: 700px) { .hero-content { padding-top: 48px; h1 { font-size: 36px; line-height: 40px; } p { font-size: 24px; } } .partners { grid-template-columns: 1fr; } .partner-content { padding-inline: 28px; } }
