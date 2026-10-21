@@ -3,6 +3,8 @@ import assert from 'node:assert/strict'
 import { writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+const siteUrl = process.argv[2] ?? 'http://127.0.0.1:5173/teste-front-end/'
+const productsPath = process.argv[3] ?? '/api/products'
 // Aba dedicada: a simulação não deve contaminar uma aba de revisão manual.
 const targetResponse = await fetch('http://127.0.0.1:9223/json/new?about:blank', { method: 'PUT' })
 assert.ok(targetResponse.ok, 'Chrome deve estar iniciado com --remote-debugging-port=9223')
@@ -42,10 +44,10 @@ try {
   await send('Runtime.enable')
   await send('Page.enable')
   await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false })
-  await send('Page.navigate', { url: 'http://127.0.0.1:5173/' })
+  await send('Page.navigate', { url: siteUrl })
   await waitFor('document.querySelectorAll(".product-card").length === 30')
   console.log('APROVADO: 10 produtos reais em cada uma das 3 vitrines')
-  const products = await evaluate('fetch("/api/products").then(r=>r.json()).then(r=>r.products)')
+  const products = await evaluate(`fetch(${JSON.stringify(productsPath)}).then(r=>r.json()).then(r=>r.products)`)
   const expected = products.map(product => product.productName)
   assert.deepEqual(await evaluate('[...document.querySelectorAll("#vitrine-1-title")[0].parentElement.querySelectorAll("h3")].map(n=>n.textContent)'), expected)
   assert.deepEqual(await evaluate('[...document.querySelectorAll(".product-track")[0].querySelectorAll("img")].map(image=>image.src)'), products.map(product => product.photo))
@@ -94,7 +96,7 @@ try {
     const fetchWithDescriptions = window.fetch;
     window.fetch = async (...args) => {
       const response = await fetchWithDescriptions(...args);
-      if (String(args[0]) !== '/api/products') return response;
+      if (String(args[0]) !== ${JSON.stringify(productsPath)}) return response;
       const payload = await response.json();
       delete payload.products[0].descriptionShort;
       payload.products[1].descriptionShort = '';
@@ -119,7 +121,7 @@ try {
   assert.deepEqual(errors, [])
   console.log('APROVADO: descrição ausente, vazia e null; sem texto substituto nem referência ARIA inexistente')
   // Interceptar fetch em memória para verificar os estados, sem alterar dados/servidor.
-  await send('Page.addScriptToEvaluateOnNewDocument', { source: `const originalFetch = window.fetch; window.fetch = (...args) => String(args[0]) === '/api/products' ? new Promise(resolve => setTimeout(() => resolve(new Response('{}', {status: 503})), 1200)) : originalFetch(...args);` })
+  await send('Page.addScriptToEvaluateOnNewDocument', { source: `const originalFetch = window.fetch; window.fetch = (...args) => String(args[0]) === ${JSON.stringify(productsPath)} ? new Promise(resolve => setTimeout(() => resolve(new Response('{}', {status: 503})), 1200)) : originalFetch(...args);` })
   await send('Page.reload')
   await waitFor('document.querySelector(".catalog-state")?.textContent.includes("Carregando")')
   await waitFor('document.querySelector("[role=alert]")?.textContent.includes("503")')

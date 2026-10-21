@@ -1,6 +1,8 @@
 import type { Product, ProductsResponse } from '../types/product'
 
-const PRODUCTS_URL = '/api/products'
+const PRODUCTS_URL = import.meta.env.PROD
+  ? `${import.meta.env.BASE_URL}dados/produtos.json`
+  : '/api/products'
 
 function isProduct(value: unknown): value is Product {
   if (!value || typeof value !== 'object') return false

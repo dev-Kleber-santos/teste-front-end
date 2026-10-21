@@ -9,4 +9,8 @@ const productsProxy = {
   },
 }
 
-export default defineConfig({ plugins: [react()], server: { proxy: productsProxy }, preview: { proxy: productsProxy } })
+export default defineConfig({
+  base: '/teste-front-end/',
+  plugins: [react()],
+  server: { proxy: productsProxy },
+})

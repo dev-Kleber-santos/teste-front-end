@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/prepare-products.mjs && tsc -b && vite build",
     "lint": "eslint . --max-warnings 0",
     "preview": "vite preview",
     "test:browser": "node scripts/verify-catalog.mjs"
